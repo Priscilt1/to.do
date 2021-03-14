@@ -29,17 +29,32 @@ export function TaskList() {
 
     setNewTaskTitle('') 
 
-   setTasks(updateList)
-   console.log(id, updateList)
+    setTasks(updateList)
   }
 
   function handleToggleTaskCompletion(id: number) {
     // Altere entre `true` ou `false` o campo `isComplete` de uma task com dado ID
+    const newArray = tasks.map(task => {
+      if(task.id == id) {
+        task.isComplete = !task.isComplete
+      }
+      return task
+    })
+    
+    setTasks(newArray)
   }
 
   function handleRemoveTask(id: number) {
     // Remova uma task da listagem pelo ID
+    const tasksCopy = [...tasks]
+    const index = tasksCopy.map(function(e) { return e.id }).indexOf(id);
+
+    if (index !== -1) {
+      tasksCopy.splice(index, 1)
+      setTasks(tasksCopy)
+    }
   }
+
 
   return (
     <section className="task-list container">
